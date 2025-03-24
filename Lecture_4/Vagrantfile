@@ -1,44 +1,65 @@
 Vagrant.configure("2") do |config|
-  config.vm.define "webserver-01" do |vm1|
-    vm1.vm.box = "bento/ubuntu-22.04"
-    vm1.vm.hostname = "webserver-01"
-    vm1.vm.network "public_network", type: "dhcp", bridge: "Intel(R) Ethernet Connection (4) I219-LM"
-    vm1.vm.provision "shell", inline: <<-SHELL
-           apt-get update
-           mkdir newfolder
-           SHELL
-    vm1.vm.synced_folder "./SharedFolder", "/shared"
-    vm1.vm.provider "virtualbox" do |vb|
-          vb.memory = "1024"  # 1GB RAM
-          vb.cpus = 1         # 1 CPU
-        end
+(1..3).each do |i|
+    config.vm.define "webserver-0#{i}" do |vm|
+      vm.vm.box = "ubuntu/focal64"
+      vm.vm.hostname = "webserver-0#{i}.local"
+      vm.vm.network "private_network", ip: "192.168.33.#{10 + i}"
+      vm.vm.provision "shell", inline: <<-SHELL
+                  apt-get update
+                  mkdir newfolder
+                  SHELL
+      vm.vm.synced_folder "./SharedFolder", "/shared"
+      vm.vm.provider "virtualbox" do |zalizo|
+        zalizo.memory = 1024
+        zalizo.cpus = 1
+      end
+    end
   end
-
-  config.vm.define "webserver-02" do |vm2|
-      vm2.vm.box = "bento/ubuntu-22.04"
-      vm2.vm.hostname = "webserver-02"
-      vm2.vm.network "private_network", ip: "192.168.10.46"
-      vm2.vm.synced_folder "./SharedFolder", "/shared"
-
-      vm2.vm.provider "virtualbox" do |vb|
-            vb.memory = "1024"  # 512MB RAM
-            vb.cpus = 1        # 1 CPU
-          end
-    end
-
-
-config.vm.define "webserver-03" do |vm3|
-      vm3.vm.box = "bento/ubuntu-22.04"
-      vm3.vm.hostname = "webserver-03"
-      vm3.vm.network "public_network", type: "DHCP", bridge: "Intel(R) Dual Band Wireless-AC 8265"
-      vm3.vm.provision "shell", inline: <<-SHELL
-             apt-get update
-             mkdir newfolder
-             SHELL
-     vm3.vm.synced_folder "./SharedFolder_other", "/shared"
-     vm3.vm.provider "virtualbox" do |vb|
-           vb.memory = "1024"  # 512MB RAM
-           vb.cpus = 1        # 1 CPU
-         end
-    end
 end
+
+#   config.vm.define "webserver-01" do |vm1|
+#     vm1.vm.box = "bento/ubuntu-22.04"
+#     vm1.vm.hostname = "webserver-01"
+#     vm1.vm.network "public_network", type: "dhcp", bridge: "Intel(R) Ethernet Connection (4) I219-LM"
+#     vm1.vm.provision "shell", inline: <<-SHELL
+#            apt-get update
+#            mkdir newfolder
+#            SHELL
+#     vm1.vm.synced_folder "./SharedFolder", "/shared"
+#     vm1.vm.provider "virtualbox" do |vb|
+#           vb.memory = "1024"  # 1GB RAM
+#           vb.cpus = 1         # 1 CPU
+#         end
+#   end
+#
+#   config.vm.define "webserver-02" do |vm2|
+#       vm2.vm.box = "bento/ubuntu-22.04"
+#       vm2.vm.hostname = "webserver-02"
+#       vm2.vm.network "private_network", ip: "192.168.10.46"
+#       vm2.vm.synced_folder "./SharedFolder", "/shared"
+#
+#       vm2.vm.provider "virtualbox" do |vb|
+#             vb.memory = "1024"  # 512MB RAM
+#             vb.cpus = 1        # 1 CPU
+#           end
+#     end
+#
+#
+# config.vm.define "webserver-03" do |vm3|
+#       vm3.vm.box = "bento/ubuntu-22.04"
+#       vm3.vm.hostname = "webserver-03"
+#       vm3.vm.network "public_network", type: "DHCP", bridge: "Intel(R) Dual Band Wireless-AC 8265"
+#       vm3.vm.provision "shell", inline: <<-SHELL
+#              apt-get update
+#              mkdir newfolder
+#              SHELL
+#      vm3.vm.synced_folder "./SharedFolder_other", "/shared"
+#      vm3.vm.provider "virtualbox" do |vb|
+#            vb.memory = "1024"  # 512MB RAM
+#            vb.cpus = 1        # 1 CPU
+#          end
+#     end
+#
+#
+#
+# end
