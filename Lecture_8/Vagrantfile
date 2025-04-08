@@ -1,0 +1,28 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "ubuntu" do |vm|
+    vm.vm.box = "bento/ubuntu-22.04"
+    vm.vm.hostname = "ubuntu"
+    vm.vm.network "private_network", type: "dhcp"
+
+    vm.vm.provision "shell", path: "./scripts/install.sh"
+
+  end
+
+ config.vm.define "fedora" do |vm|
+   vm.vm.box = "generic/fedora35"
+   vm.vm.hostname = "fedora"
+   vm.vm.network "private_network", type: "dhcp"
+   vm.vm.provision "shell", path: "./scripts/install.sh"
+
+ end
+
+    config.vm.define "centos" do |vm|
+    vm.vm.box = "generic/centos8"
+    vm.vm.hostname = "centos"
+    vm.vm.network "private_network", type: "dhcp"
+    vm.vm.provision "shell", path: "./scripts/install.sh"
+
+  end
+
+
+end
