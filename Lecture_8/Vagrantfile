@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.define "ubuntu" do |vm|
-    vm.vm.box = "bento/ubuntu-22.04"
+    vm.vm.box = "bento/ubuntu-23.10"
     vm.vm.hostname = "ubuntu"
     vm.vm.network "private_network", type: "dhcp"
 
