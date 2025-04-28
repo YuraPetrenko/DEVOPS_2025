@@ -6,9 +6,9 @@ echo "mysql-server встановлено"
 
 # Змінні для налаштування
 DB_NAME="SchoolDB"
-DB_USER="Балабони"
+DB_USER="bal....."
 user_host="192.168.%.%"
-DB_PASSWORD="хер вам а не пароль"
+DB_PASSWORD="rwz"
 
 # Створення бази даних
 sudo mysql <<EOF
