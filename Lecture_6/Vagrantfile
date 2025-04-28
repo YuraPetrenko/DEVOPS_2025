@@ -1,0 +1,41 @@
+Vagrant.configure("2") do |config|
+config.vm.define "webserver-01" do |vm|
+    vm.vm.box = "bento/ubuntu-22.04"
+    vm.vm.hostname = "webserver-01"
+    vm.vm.network "public_network", type: "dhcp", bridge: "Intel(R) Ethernet Connection (4) I219-LM"
+    vm.vm.provision "shell", inline: <<-SHELL
+                      apt-get update
+                      sudo apt install nginx -y
+                      SHELL
+
+    vm.vm.provider "virtualbox" do |vm|
+          vm.memory = "1024"  # 1GB RAM
+          vm.cpus = 1         # 1 CPU
+    end
+end
+config.vm.define "
+" do |vm2|
+    vm2.vm.box = "bento/ubuntu-22.04"
+    vm2.vm.hostname = "webserver-02"
+    vm2.vm.network "public_network", type: "dhcp", bridge: "Intel(R) Ethernet Connection (4) I219-LM"
+    vm2.vm.provider "virtualbox" do |vm|
+          vm.memory = "1024"  # 1GB RAM
+          vm.cpus = 1         # 1 CPU
+    end
+end
+
+config.vm.define "webserver-03" do |vm3|
+    vm3.vm.box = "bento/ubuntu-22.04"
+    vm3.vm.hostname = "webserver-03"
+    vm3.vm.network "public_network", type: "dhcp", bridge: "Intel(R) Ethernet Connection (4) I219-LM"
+    vm3.vm.provider "virtualbox" do |vm|
+          vm.memory = "1024"  # 1GB RAM
+          vm.cpus = 1         # 1 CPU
+    end
+end
+
+
+
+
+end
+
