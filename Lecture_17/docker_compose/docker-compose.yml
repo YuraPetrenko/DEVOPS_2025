@@ -6,7 +6,7 @@ services:
     volumes:
       - ./web-data:/usr/share/nginx/html:ro
     ports:
-      - "8080:80"
+      - "8080-8090:80"
     networks:
       - appnet
 

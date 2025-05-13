@@ -51,4 +51,12 @@ ec2-user-web-1     nginx:latest   "/docker-entrypoint.…"   web       15 minute
 ### Перевірка роботи нджінкса
 ![](images/nginx.PNG)
 
+### Просмотр мережі та волумсів 
 
+![](images/network.PNG)
+![](images/volume.PNG)
+### Підключення до  постгрес
+![](images/db.PNG)
+
+### Маштабування нджінкс
+![](images/3nginx.PNG)
