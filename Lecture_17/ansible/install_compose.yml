@@ -1,0 +1,25 @@
+---
+- name: Перевірка та встановлення Docker Compose
+  hosts: ec2
+  become: yes
+
+  tasks:
+    - name: Перевіряємо, чи вже є /home/ec2-user/docker-compose
+      stat:
+        path: /home/ec2-user/docker-compose
+      register: compose_file
+
+    - name: Встановлюємо Docker Compose, якщо ще не встановлений
+      shell: |
+        curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64" -o /home/ec2-user/docker-compose
+        chmod +x /home/ec2-user/docker-compose
+      when: not compose_file.stat.exists
+
+    - name: Перевіряємо версію docker-compose (через повний шлях)
+      command: /home/ec2-user/docker-compose --version
+      register: compose_version
+      changed_when: false
+
+    - name: Виводимо версію
+      debug:
+        var: compose_version.stdout

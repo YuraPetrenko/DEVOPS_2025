@@ -1,0 +1,29 @@
+---
+- name: Деплой docker-compose проєкту
+  hosts: ec2
+  become: yes
+
+  tasks:
+    - name: Копіюємо docker-compose.yml
+      copy:
+        src: ../docker_compose/docker-compose.yml
+        dest: /home/ec2-user/docker-compose.yml
+        mode: '0644'
+
+    - name: Створюємо папку web-data, якщо її немає
+      file:
+        path: /home/ec2-user/web-data
+        state: directory
+        mode: '0755'
+
+    - name: Копіюємо index.html
+      copy:
+        src: ../docker_compose/web-data/index.html
+        dest: /home/ec2-user/web-data/index.html
+        mode: '0644'
+
+
+    - name: Запускаємо docker compose
+      shell: /home/ec2-user/docker-compose up -d
+      args:
+        chdir: /home/ec2-user/
